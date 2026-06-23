@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Decor Products</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+/* RESET */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    overflow-x:hidden;
+    font-family:'Segoe UI', sans-serif;
+}
+
+/* BODY BACKGROUND */
+body{
+    background: linear-gradient(
+        to bottom,
+        #f5e6c8,
+        #d9b382,
+        #b8860b,
+        #8b5a2b
+    );
+}
+
+/* Top Query Bar */
+.top-bar{
+    background:#8b5a2b;
+    color:white;
+    text-align:center;
+    padding:10px;
+    font-size:14px;
+    font-weight:600;
+}
+
+.navbar{
+    background:transparent;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 20px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.1);
+    position:sticky;
+    top:0;
+    z-index:999;
+}
+.nav-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.abs-logo{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+  background:linear-gradient(135deg,#b8860b,#cd7f32,#ffd700);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    letter-spacing:1px;
+    box-shadow:0 3px 8px rgba(0,0,0,0.2);
+    cursor:pointer;
+}
+
+.menu-icon{
+    font-size:24px;
+    cursor:pointer;
+}
+
+.nav-right{
+    display:flex;
+    gap:20px;
+    align-items:center;
+}
+
+.icon-box{
+    position:relative;
+    cursor:pointer;
+    font-size:20px;
+}
+
+.count{
+    position:absolute;
+    top:-8px;
+    right:-10px;
+    background:red;
+    color:white;
+    font-size:10px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+/* Sidebar */
+.sidebar{
+    width:260px;
+    height:100%;
+    background:white;
+    position:fixed;
+    left:-260px;
+    top:0;
+    transition:0.4s;
+    z-index:1000;
+    box-shadow:2px 0 10px rgba(0,0,0,0.2);
+    padding:20px;
+}
+
+.sidebar.active{
+    left:0;
+}
+
+.close-btn{
+    font-size:25px;
+    cursor:pointer;
+    margin-bottom:20px;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar ul li{
+    padding:15px 0;
+    border-bottom:1px solid #ddd;
+    cursor:pointer;
+}
+
+/* Search Box */
+.search-box{
+    display:none;
+    padding:15px;
+ background:transparent;
+}
+
+.search-box input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+/* Search results list */
+.search-results{
+    display:none;
+    margin-top:8px;
+    max-height:260px;
+    overflow:auto;
+    background:white;
+    border-radius:8px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.08);
+    padding:6px;
+}
+.search-item{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    padding:8px;
+    cursor:pointer;
+    border-radius:6px;
+}
+.search-item:hover{ background:#f6f6f6; }
+.search-item img{ width:48px; height:48px; object-fit:cover; border-radius:6px; }
+.search-item p{ margin:0; font-size:14px; color:#333; }
+
+.nav-categories{
+    display:flex;
+    gap:20px;
+    align-items:center;
+    font-size:14px;
+    font-weight:600;
+    color:#8b5a2b;
+}
+.nav-categories{
+    font-family:'Cinzel', serif;
+}
+.nav-categories div{
+    cursor:pointer;
+    white-space:nowrap;
+}
+
+.category-mega{
+    position:relative;
+    cursor:pointer;
+}
+
+.mega-menu{
+    position:absolute;
+    top:100%;
+    left:0;
+    width:750px;
+    background:#fff;
+    padding:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    border-radius:10px;
+    z-index:9999;
+    display:none;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.mega-column{
+    width:33%;
+}
+
+.mega-column h4{
+    margin-bottom:10px;
+    color:#8b5a2b;
+    border-bottom:2px solid #c28b22;
+    padding-bottom:5px;
+}
+
+.mega-column a{
+    display:block;
+    text-decoration:none;
+    color:#333;
+    font-size:14px;
+    padding:5px 0;
+    transition:0.3s;
+}
+
+.mega-column a:hover{
+    color:#8b5a2b;
+    transform:translateX(5px);
+}
+
+.category-mega:hover .mega-menu{
+    display:flex;
+}
+
+/* Mobile */
+@media(max-width:768px){
+    .nav-categories{
+        display:none;
+    }
+    .mega-menu{
+        width:100%;
+        flex-direction:column;
+        position:relative;
+    }
+}
+
+
+
+/* TITLE */
+.section-header{
+    position:relative;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.section-header h2{
+    margin:0;
+    color:#fbbf24;
+    font-size:28px;
+}
+
+.section-back-btn{
+    position:absolute;
+    left:20px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    border:none;
+    background:rgba(255,255,255,0.95);
+    color:#8b5a2b;
+    padding:10px 14px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:700;
+    box-shadow:0 4px 12px rgba(0,0,0,0.12);
+}
+
+.section-back-btn i{
+    font-size:14px;
+}
+
+/* PRODUCT GRID */
+.product-container{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    padding:20px;
+}
+
+/* PRODUCT CARD */
+.product-box{
+    background:#fff;
+    border-radius:12px;
+    overflow:hidden;
+    padding:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    transition:0.3s;
+}
+
+.product-box:hover{
+    transform:translateY(-8px);
+}
+
+.product-img-box{
+    position:relative;
+}
+
+.product-img-box img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:10px;
+}
+
+/* PRODUCT ICONS */
+.product-icons{
+    position:absolute;
+    top:10px;
+    right:10px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.wishlist-icon,
+.search-product-icon{
+    width:35px;
+    height:35px;
+    background:#fff;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+}
+
+.product-desc{
+    margin-top:10px;
+    font-size:14px;
+}
+
+.rating{
+    margin-top:6px;
+}
+
+.price{
+    margin-top:6px;
+    font-size:16px;
+    font-weight:bold;
+    color:#b8860b;
+}
+
+.price span{
+    text-decoration:line-through;
+    color:#888;
+    margin-left:8px;
+}
+
+.add-cart-btn{
+    margin-top:10px;
+    width:100%;
+    padding:8px;
+    border:none;
+    border-radius:6px;
+    background:#fbbf24;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* TABLET */
+@media(max-width:1024px){
+    .product-container{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+/* MOBILE */
+@media(max-width:768px){
+    .product-container{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .product-img-box img{
+        height:140px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="nav-left">
+        <div class="menu-icon" onclick="openMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="logo abs-logo">ABS</div>
+<div class="nav-categories">
+<div class="category-mega">
+    <span onclick="toggleMegaMenu(event)">Dinning</span>
+    <div class="mega-menu">
+        <div class="mega-column">
+            <h4>Plates</h4>
+            <a href="#">Brass Dinner Plate</a>
+            <a href="#">Brass Thali Plate</a>
+            <a href="#">Brass Pooja Plate</a>
+            <a href="#">Brass Designer Plate</a>
+            <a href="#">Brass Engraved Plate</a>
+            <a href="#">Brass Serving Plate</a>
+            <a href="#">Brass Traditional Plate</a>
+            <a href="#">Brass Round Plate</a>
+            <a href="#">Brass Decorative Plate</a>
+            <a href="#">Brass Antique Plate</a>
+        </div>
+        <div class="mega-column">
+            <h4>Bowls</h4>
+            <a href="#">Brass Serving Bowl</a>
+            <a href="#">Brass Pooja Bowl</a>
+            <a href="#">Brass Decorative Bowl</a>
+            <a href="#">Brass Fruit Bowl</a>
+            <a href="#">Brass Engraved Bowl</a>
+            <a href="#">Brass Traditional Bowl</a>
+            <a href="#">Brass Antique Bowl</a>
+            <a href="#">Brass Hammered Bowl</a>
+            <a href="#">Brass Big Bowl</a>
+            <a href="#">Brass Small Bowl</a>
+        </div>
+        <div class="mega-column">
+            <h4>Glasses</h4>
+            <a href="#">Brass Water Glass</a>
+            <a href="#">Brass Designer Glass</a>
+            <a href="#">Brass Pooja Glass</a>
+            <a href="#">Brass Traditional Glass</a>
+            <a href="#">Brass Engraved Glass</a>
+            <a href="#">Brass Hammered Glass</a>
+            <a href="#">Brass Antique Glass</a>
+            <a href="#">Brass Tumbler Glass</a>
+            <a href="#">Brass Drinking Glass</a>
+            <a href="#">Brass Glass Set</a>
+        </div>
+    </div>
+</div>
+<div class="category-mega">
+    Decor
+    <div class="mega-menu">
+        <div class="mega-column">
+            <h4>Wall Decor</h4>
+            <a href="#">Brass Wall Hanging</a>
+            <a href="#">Brass Sun Wall Art</a>
+            <a href="#">Brass Peacock Decor</a>
+            <a href="#">Brass Elephant Wall Piece</a>
+            <a href="#">Brass Traditional Frame</a>
+            <a href="#">Brass Floral Wall Art</a>
+            <a href="#">Brass Antique Wall Decor</a>
+            <a href="#">Brass Temple Hanging</a>
+            <a href="#">Brass Decorative Panel</a>
+            <a href="#">Brass Vintage Wall Plate</a>
+        </div>
+        <div class="mega-column">
+            <h4>Lamps</h4>
+            <a href="#">Brass Hanging Lamp</a>
+            <a href="#">Brass Deepam Lamp</a>
+            <a href="#">Brass Kerala Lamp</a>
+            <a href="#">Brass Standing Lamp</a>
+            <a href="#">Brass Designer Lamp</a>
+            <a href="#">Brass Antique Lamp</a>
+            <a href="#">Brass Pooja Lamp</a>
+            <a href="#">Brass Festival Lamp</a>
+            <a href="#">Brass Traditional Lamp</a>
+            <a href="#">Brass Decorative Lamp</a>
+        </div>
+        <div class="mega-column">
+            <h4>Showpieces</h4>
+            <a href="#">Brass Swan Showpiece</a>
+            <a href="#">Brass Horse Statue</a>
+            <a href="#">Brass Elephant Showpiece</a>
+            <a href="#">Brass Peacock Showpiece</a>
+            <a href="#">Brass Deer Decor</a>
+            <a href="#">Brass Flower Vase</a>
+            <a href="#">Brass Designer Statue</a>
+            <a href="#">Brass Antique Piece</a>
+            <a href="#">Brass Luxury Decor</a>
+            <a href="#">Brass Premium Artifact</a>
+        </div>
+    </div>
+</div>
+<div class="category-mega">
+    Pooja
+    <div class="mega-menu">
+        <div class="mega-column">
+            <h4>Diya</h4>
+            <a href="#">Brass Traditional Diya</a>
+            <a href="#">Brass Lotus Diya</a>
+            <a href="#">Brass Peacock Diya</a>
+            <a href="#">Brass Hanging Diya</a>
+            <a href="#">Brass Antique Diya</a>
+            <a href="#">Brass Festival Diya</a>
+            <a href="#">Brass Designer Diya</a>
+            <a href="#">Brass Oil Diya</a>
+            <a href="#">Brass Temple Diya</a>
+            <a href="#">Brass Decorative Diya</a>
+        </div>
+        <div class="mega-column">
+            <h4>Bells</h4>
+            <a href="#">Brass Temple Bell</a>
+            <a href="#">Brass Hanging Bell</a>
+            <a href="#">Brass Engraved Bell</a>
+            <a href="#">Brass Traditional Bell</a>
+            <a href="#">Brass Decorative Bell</a>
+            <a href="#">Brass Antique Bell</a>
+            <a href="#">Brass Pooja Bell</a>
+            <a href="#">Brass Small Bell</a>
+            <a href="#">Brass Big Bell</a>
+            <a href="#">Brass Premium Bell</a>
+        </div>
+        <div class="mega-column">
+            <h4>Pooja Plates</h4>
+            <a href="#">Brass Aarti Plate</a>
+            <a href="#">Brass Engraved Plate</a>
+            <a href="#">Brass Traditional Pooja Plate</a>
+            <a href="#">Brass Designer Plate</a>
+            <a href="#">Brass Antique Plate</a>
+            <a href="#">Brass Temple Plate</a>
+            <a href="#">Brass Decorative Plate</a>
+            <a href="#">Brass Festival Plate</a>
+            <a href="#">Brass Round Plate</a>
+            <a href="#">Brass Premium Plate</a>
+        </div>
+    </div>
+</div>
+<div class="category-mega">
+    Idols
+    <div class="mega-menu">
+        <div class="mega-column">
+            <h4>Ganesha</h4>
+            <a href="#">Brass Sitting Ganesha</a>
+            <a href="#">Brass Dancing Ganesha</a>
+            <a href="#">Brass Antique Ganesha</a>
+            <a href="#">Brass Temple Ganesha</a>
+            <a href="#">Brass Designer Ganesha</a>
+            <a href="#">Brass Blessing Ganesha</a>
+            <a href="#">Brass Small Ganesha</a>
+            <a href="#">Brass Big Ganesha</a>
+            <a href="#">Brass Decorative Ganesha</a>
+            <a href="#">Brass Premium Ganesha</a>
+        </div>
+        <div class="mega-column">
+            <h4>Lakshmi</h4>
+            <a href="#">Brass Sitting Lakshmi</a>
+            <a href="#">Brass Standing Lakshmi</a>
+            <a href="#">Brass Antique Lakshmi</a>
+            <a href="#">Brass Temple Lakshmi</a>
+            <a href="#">Brass Designer Lakshmi</a>
+            <a href="#">Brass Blessing Lakshmi</a>
+            <a href="#">Brass Small Lakshmi</a>
+            <a href="#">Brass Big Lakshmi</a>
+            <a href="#">Brass Decorative Lakshmi</a>
+            <a href="#">Brass Premium Lakshmi</a>
+        </div>
+        <div class="mega-column">
+            <h4>Krishna</h4>
+            <a href="#">Brass Baby Krishna</a>
+            <a href="#">Brass Flute Krishna</a>
+            <a href="#">Brass Radha Krishna</a>
+            <a href="#">Brass Antique Krishna</a>
+            <a href="#">Brass Temple Krishna</a>
+            <a href="#">Brass Designer Krishna</a>
+            <a href="#">Brass Dancing Krishna</a>
+            <a href="#">Brass Small Krishna</a>
+            <a href="#">Brass Big Krishna</a>
+            <a href="#">Brass Premium Krishna</a>
+        </div>
+    </div>
+</div>
+<div class="category-mega">
+    Best Sellers
+    <div class="mega-menu">
+        <div class="mega-column">
+            <h4>Top Dinning</h4>
+            <a href="#">Best Brass Dinner Plate</a>
+            <a href="#">Best Brass Bowl Set</a>
+            <a href="#">Best Brass Glass Set</a>
+            <a href="#">Best Brass Serving Plate</a>
+            <a href="#">Best Brass Water Glass</a>
+            <a href="#">Best Brass Designer Bowl</a>
+            <a href="#">Best Brass Thali Set</a>
+            <a href="#">Best Brass Antique Plate</a>
+            <a href="#">Best Brass Premium Bowl</a>
+            <a href="#">Best Brass Luxury Glass</a>
+        </div>
+        <div class="mega-column">
+            <h4>Top Pooja</h4>
+            <a href="#">Best Brass Diya Set</a>
+            <a href="#">Best Brass Temple Bell</a>
+            <a href="#">Best Brass Pooja Plate</a>
+            <a href="#">Best Brass Aarti Plate</a>
+            <a href="#">Best Brass Hanging Diya</a>
+            <a href="#">Best Brass Traditional Bell</a>
+            <a href="#">Best Brass Decorative Diya</a>
+            <a href="#">Best Brass Temple Plate</a>
+            <a href="#">Best Brass Festival Diya</a>
+            <a href="#">Best Brass Antique Bell</a>
+        </div>
+        <div class="mega-column">
+            <h4>Top Idols</h4>
+            <a href="#">Best Brass Ganesha Idol</a>
+            <a href="#">Best Brass Lakshmi Idol</a>
+            <a href="#">Best Brass Krishna Idol</a>
+            <a href="#">Best Brass Radha Krishna</a>
+            <a href="#">Best Brass Baby Krishna</a>
+            <a href="#">Best Brass Temple Ganesha</a>
+            <a href="#">Best Brass Antique Lakshmi</a>
+            <a href="#">Best Brass Premium Krishna</a>
+            <a href="#">Best Brass Decorative Ganesha</a>
+            <a href="#">Best Brass Blessing Lakshmi</a>
+        </div>
+    </div>
+</div>
+<div class="category-mega">
+    Collections
+    <div class="mega-menu">
+        <div class="mega-column">
+            <h4>Premium Collection</h4>
+            <a href="#">Premium Brass Dinner Set</a>
+            <a href="#">Premium Brass Bowl Set</a>
+            <a href="#">Premium Brass Water Glass</a>
+            <a href="#">Premium Brass Decorative Plate</a>
+            <a href="#">Premium Brass Lamp</a>
+            <a href="#">Premium Brass Diya Set</a>
+            <a href="#">Premium Brass Temple Bell</a>
+            <a href="#">Premium Brass Idol Set</a>
+            <a href="#">Premium Brass Wall Decor</a>
+            <a href="#">Premium Brass Gift Set</a>
+        </div>
+        <div class="mega-column">
+            <h4>Festival Collection</h4>
+            <a href="#">Festival Brass Diya</a>
+            <a href="#">Festival Brass Pooja Plate</a>
+            <a href="#">Festival Brass Bell</a>
+            <a href="#">Festival Brass Lamp</a>
+            <a href="#">Festival Brass Kalash</a>
+            <a href="#">Festival Brass Aarti Set</a>
+            <a href="#">Festival Brass Ganesha</a>
+            <a href="#">Festival Brass Lakshmi</a>
+            <a href="#">Festival Brass Krishna</a>
+            <a href="#">Festival Brass Decoration Set</a>
+        </div>
+        <div class="mega-column">
+            <h4>Gift Collection</h4>
+            <a href="#">Brass Gift Box Set</a>
+            <a href="#">Brass Wedding Gift Set</a>
+            <a href="#">Brass Return Gift Items</a>
+            <a href="#">Brass Decorative Gift Set</a>
+            <a href="#">Brass Idol Gift Set</a>
+            <a href="#">Brass Pooja Gift Set</a>
+            <a href="#">Brass Corporate Gift Set</a>
+            <a href="#">Brass Festival Gift Set</a>
+            <a href="#">Brass Luxury Gift Set</a>
+            <a href="#">Brass Premium Gift Set</a>
+        </div>
+    </div>
+</div>
+<div class="category-mega">
+    More
+    <div class="mega-menu">
+        <div class="mega-column">
+            <h4>Home Decor</h4>
+            <a href="#">Brass Flower Vase</a>
+            <a href="#">Brass Candle Stand</a>
+            <a href="#">Brass Wall Hanging</a>
+            <a href="#">Brass Decorative Bowl</a>
+            <a href="#">Brass Antique Decor</a>
+            <a href="#">Brass Hanging Lamp</a>
+            <a href="#">Brass Table Decor</a>
+            <a href="#">Brass Peacock Decor</a>
+            <a href="#">Brass Showpiece Set</a>
+            <a href="#">Brass Luxury Decor</a>
+        </div>
+        <div class="mega-column">
+            <h4>Kitchen Items</h4>
+            <a href="#">Brass Cooking Pot</a>
+            <a href="#">Brass Serving Spoon</a>
+            <a href="#">Brass Storage Box</a>
+            <a href="#">Brass Water Pot</a>
+            <a href="#">Brass Tiffin Box</a>
+            <a href="#">Brass Bowl Set</a>
+            <a href="#">Brass Plate Set</a>
+            <a href="#">Brass Drinking Set</a>
+            <a href="#">Brass Traditional Pot</a>
+            <a href="#">Brass Kitchen Set</a>
+        </div>
+        <div class="mega-column">
+            <h4>Special Items</h4>
+            <a href="#">Brass Kalash</a>
+            <a href="#">Brass Temple Set</a>
+            <a href="#">Brass Gift Box</a>
+            <a href="#">Brass Festival Set</a>
+            <a href="#">Brass Luxury Collection</a>
+            <a href="#">Brass Wedding Set</a>
+            <a href="#">Brass Premium Decor</a>
+            <a href="#">Brass Ritual Set</a>
+            <a href="#">Brass Antique Set</a>
+            <a href="#">Brass Exclusive Items</a>
+        </div>
+    </div>
+</div>
+<div class="category-mega">
+    Deals
+    <div class="mega-menu">
+        <div class="mega-column">
+            <h4>Today Offers</h4>
+            <a href="#">Brass Plate 20% Off</a>
+            <a href="#">Brass Bowl 15% Off</a>
+            <a href="#">Brass Glass 10% Off</a>
+            <a href="#">Brass Lamp 25% Off</a>
+            <a href="#">Brass Diya 18% Off</a>
+            <a href="#">Brass Bell 12% Off</a>
+            <a href="#">Brass Idol 30% Off</a>
+            <a href="#">Brass Decor 22% Off</a>
+            <a href="#">Brass Vase 16% Off</a>
+            <a href="#">Brass Gift Set 28% Off</a>
+        </div>
+        <div class="mega-column">
+            <h4>Combo Deals</h4>
+            <a href="#">Plate + Bowl Combo</a>
+            <a href="#">Glass + Bowl Combo</a>
+            <a href="#">Pooja Set Combo</a>
+            <a href="#">Lamp + Diya Combo</a>
+            <a href="#">Bell + Plate Combo</a>
+            <a href="#">Idol + Decor Combo</a>
+            <a href="#">Festival Combo Set</a>
+            <a href="#">Kitchen Combo Set</a>
+            <a href="#">Gift Combo Pack</a>
+            <a href="#">Luxury Combo Pack</a>
+        </div>
+        <div class="mega-column">
+            <h4>Festival Offers</h4>
+            <a href="#">Diwali Brass Set</a>
+            <a href="#">Navratri Pooja Set</a>
+            <a href="#">Ugadi Brass Combo</a>
+            <a href="#">Wedding Offer Set</a>
+            <a href="#">Temple Special Set</a>
+            <a href="#">Aarti Combo Offer</a>
+            <a href="#">Premium Festival Pack</a>
+            <a href="#">Traditional Offer Set</a>
+            <a href="#">Decor Festival Combo</a>
+            <a href="#">Gift Offer Set</a>
+        </div>
+    </div>
+</div>
+<div class="category-mega">
+    New
+    <div class="mega-menu">
+        <div class="mega-column">
+            <h4>New Arrivals</h4>
+            <a href="#">New Brass Plate Set</a>
+            <a href="#">New Brass Bowl Set</a>
+            <a href="#">New Brass Glass Set</a>
+            <a href="#">New Brass Lamp</a>
+            <a href="#">New Brass Diya</a>
+            <a href="#">New Brass Bell</a>
+            <a href="#">New Brass Idol</a>
+            <a href="#">New Brass Decor</a>
+            <a href="#">New Brass Vase</a>
+            <a href="#">New Brass Gift Set</a>
+        </div>
+        <div class="mega-column">
+            <h4>Trending Now</h4>
+            <a href="#">Trending Ganesha Idol</a>
+            <a href="#">Trending Lakshmi Idol</a>
+            <a href="#">Trending Krishna Idol</a>
+            <a href="#">Trending Brass Lamp</a>
+            <a href="#">Trending Brass Bowl</a>
+            <a href="#">Trending Brass Plate</a>
+            <a href="#">Trending Brass Bell</a>
+            <a href="#">Trending Brass Decor</a>
+            <a href="#">Trending Brass Vase</a>
+            <a href="#">Trending Brass Set</a>
+        </div>
+        <div class="mega-column">
+            <h4>Latest Collection</h4>
+            <a href="#">Latest Premium Set</a>
+            <a href="#">Latest Festival Set</a>
+            <a href="#">Latest Decor Set</a>
+            <a href="#">Latest Kitchen Set</a>
+            <a href="#">Latest Temple Set</a>
+            <a href="#">Latest Gift Set</a>
+            <a href="#">Latest Luxury Set</a>
+            <a href="#">Latest Antique Set</a>
+            <a href="#">Latest Brass Collection</a>
+            <a href="#">Latest Exclusive Set</a>
+        </div>
+    </div>
+</div>
+</div>
+    </div>
+
+    <div class="nav-right">
+        <div class="icon-box" id="navSearch" onclick="toggleSearch()">
+            <i class="fas fa-search"></i>
+        </div>
+        <div class="icon-box" id="navProfile" onclick="toggleProfile()">
+            <i class="fas fa-user"></i>
+        </div>
+        <div class="icon-box" id="navWishlist" onclick="addWishlist()">
+            <i class="fas fa-heart"></i>
+            <div class="count" id="wishCount">0</div>
+        </div>
+        <div class="icon-box" id="navCart" onclick="openCart()">
+            <i class="fas fa-shopping-cart"></i>
+            <div class="count" id="cartCount">0</div>
+        </div>
+    </div>
+</div>
+
+<div class="search-box" id="searchBox">
+    <input type="text" id="searchInput" placeholder="Search decor items..." onkeyup="searchProducts()">
+    <div id="searchResults" class="search-results"></div>
+</div>
+
+<div class="section-header">
+    <button class="section-back-btn" onclick="history.back()">
+        <i class="fas fa-arrow-left"></i>
+        Back
+    </button>
+    <h2>Decor Products</h2>
+</div>
+
+<div class="product-container">
+
+    <div class="product-box" data-name="Brass decorative flower vase" data-image="./images/1 (2).webp">
+        <div class="product-img-box">
+            <img src="./images/1 (2).webp">
+            <div class="product-icons">
+                <div class="wishlist-icon"><i class="far fa-heart"></i></div>
+                <div class="search-product-icon"><i class="fas fa-search"></i></div>
+            </div>
+        </div>
+        <p class="product-desc">Brass decorative flower vase</p>
+        <div class="rating">⭐⭐⭐⭐⭐ (5.0)</div>
+        <div class="price">₹1500 <span>₹1800</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="product-box" data-name="Traditional brass lamp decor" data-image="./images/2 (2).webp">
+        <div class="product-img-box">
+            <img src="./images/2 (2).webp">
+            <div class="product-icons">
+                <div class="wishlist-icon"><i class="far fa-heart"></i></div>
+                <div class="search-product-icon"><i class="fas fa-search"></i></div>
+            </div>
+        </div>
+        <p class="product-desc">Traditional brass lamp decor</p>
+        <div class="rating">⭐⭐⭐⭐☆ (4.5)</div>
+        <div class="price">₹2200 <span>₹2500</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="product-box" data-name="Elegant brass wall hanging" data-image="./images/3 (2).webp">
+        <div class="product-img-box">
+            <img src="./images/3 (2).webp">
+            <div class="product-icons">
+                <div class="wishlist-icon"><i class="far fa-heart"></i></div>
+                <div class="search-product-icon"><i class="fas fa-search"></i></div>
+            </div>
+        </div>
+        <p class="product-desc">Elegant brass wall hanging</p>
+        <div class="rating">⭐⭐⭐⭐⭐ (4.8)</div>
+        <div class="price">₹1800 <span>₹2100</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="product-box" data-name="Luxury brass candle stand" data-image="./images/4.webp">
+        <div class="product-img-box">
+            <img src="./images/4.webp">
+            <div class="product-icons">
+                <div class="wishlist-icon"><i class="far fa-heart"></i></div>
+                <div class="search-product-icon"><i class="fas fa-search"></i></div>
+            </div>
+        </div>
+        <p class="product-desc">Luxury brass candle stand</p>
+        <div class="rating">⭐⭐⭐⭐☆ (4.4)</div>
+        <div class="price">₹1300 <span>₹1600</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="product-box" data-name="Brass elephant showpiece" data-image="./images/5 (1).webp">
+        <div class="product-img-box">
+            <img src="./images/5 (1).webp">
+            <div class="product-icons">
+                <div class="wishlist-icon"><i class="far fa-heart"></i></div>
+                <div class="search-product-icon"><i class="fas fa-search"></i></div>
+            </div>
+        </div>
+        <p class="product-desc">Brass elephant showpiece</p>
+        <div class="rating">⭐⭐⭐⭐⭐ (5.0)</div>
+        <div class="price">₹2500 <span>₹3000</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="product-box" data-name="Vintage brass hanging bells" data-image="./images/6 (1).webp">
+        <div class="product-img-box">
+            <img src="./images/6 (1).webp">
+            <div class="product-icons">
+                <div class="wishlist-icon"><i class="far fa-heart"></i></div>
+                <div class="search-product-icon"><i class="fas fa-search"></i></div>
+            </div>
+        </div>
+        <p class="product-desc">Vintage brass hanging bells</p>
+        <div class="rating">⭐⭐⭐⭐☆ (4.7)</div>
+        <div class="price">₹1700 <span>₹2000</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="product-box" data-name="Decorative brass urli bowl" data-image="./images/7 (1).webp">
+        <div class="product-img-box">
+            <img src="./images/7 (1).webp">
+            <div class="product-icons">
+                <div class="wishlist-icon"><i class="far fa-heart"></i></div>
+                <div class="search-product-icon"><i class="fas fa-search"></i></div>
+            </div>
+        </div>
+        <p class="product-desc">Decorative brass urli bowl</p>
+        <div class="rating">⭐⭐⭐⭐⭐ (4.9)</div>
+        <div class="price">₹1900 <span>₹2200</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+    </div>
+
+    <div class="product-box" data-name="Brass peacock home decor" data-image="./images/8 (1).webp">
+        <div class="product-img-box">
+            <img src="./images/8 (1).webp">
+            <div class="product-icons">
+                <div class="wishlist-icon"><i class="far fa-heart"></i></div>
+                <div class="search-product-icon"><i class="fas fa-search"></i></div>
+            </div>
+        </div>
+        <p class="product-desc">Brass peacock home decor</p>
+        <div class="rating">⭐⭐⭐⭐☆ (4.6)</div>
+        <div class="price">₹2100 <span>₹2500</span></div>
+        <button class="add-cart-btn">Add to Cart</button>
+    </div>
+
+</div>
+
+<script>
+// Sidebar menu toggle
+function openMenu(){
+    document.querySelector(".sidebar").classList.add("active");
+}
+
+// Close sidebar
+function closeMenu(){
+    document.querySelector(".sidebar").classList.remove("active");
+}
+
+// Search box toggle with active styling
+function toggleSearch(){
+    const searchBox = document.getElementById('searchBox');
+    const nav = document.getElementById('navSearch');
+    if(!searchBox) return;
+    const computed = window.getComputedStyle(searchBox);
+    const isHidden = computed.display === 'none' || computed.visibility === 'hidden';
+    if(isHidden){
+        searchBox.style.display = 'block';
+        clearNavActive();
+        if(nav) nav.classList.add('active');
+    } else {
+        searchBox.style.display = 'none';
+        if(nav) nav.classList.remove('active');
+    }
+}
+
+// Profile toggle
+function toggleProfile(){
+    const popup = document.querySelector('.profile-popup');
+    const nav = document.getElementById('navProfile');
+    if(popup) popup.classList.toggle('active');
+    if(nav) nav.classList.toggle('active');
+}
+
+// Add to wishlist
+function addWishlist(){
+    const count = document.getElementById('wishCount');
+    if(count) count.textContent = parseInt(count.textContent || '0') + 1;
+    const nav = document.getElementById('navWishlist');
+    if(nav){
+        nav.classList.add('active');
+        setTimeout(()=>nav.classList.remove('active'),800);
+    }
+}
+
+// Open cart
+function openCart(){
+    const nav = document.getElementById('navCart');
+    if(nav){
+        nav.classList.add('active');
+        setTimeout(()=>nav.classList.remove('active'),800);
+    }
+    alert('Cart opened!');
+}
+
+// Toggle mega menu
+function toggleMegaMenu(event){
+    event.stopPropagation();
+}
+
+function clearNavActive(){
+    document.querySelectorAll('.nav-right .icon-box').forEach(el=>el.classList.remove('active'));
+}
+
+window._products = [];
+
+const productsData = [
+    {
+        name: 'Brass decorative flower vase',
+        img: './images/1 (2).webp',
+        desc: 'Brass decorative flower vase',
+        rating: '⭐⭐⭐⭐⭐ (5.0)',
+        price: '₹1500',
+        oldPrice: '₹1800',
+        sku: 'BDV-001',
+        material: 'Brass alloy',
+        dimensions: '18 x 18 x 28 cm',
+        weight: '1.1 kg',
+        availability: 'In Stock',
+        shipping: 'Free shipping on orders above ₹2,499.',
+        features: [
+            'Handcrafted brass flower vase with elegant curves.',
+            'Great for tabletop decor and gifting.',
+            'Polished finish that stays bright.'
+        ]
+    },
+    {
+        name: 'Traditional brass lamp decor',
+        img: './images/2 (2).webp',
+        desc: 'Traditional brass lamp decor',
+        rating: '⭐⭐⭐⭐☆ (4.5)',
+        price: '₹2200',
+        oldPrice: '₹2500',
+        sku: 'BTL-002',
+        material: 'Brass with antique finish',
+        dimensions: '24 x 12 x 12 cm',
+        weight: '1.2 kg',
+        availability: 'In Stock',
+        shipping: 'Delivered in secure, padded packaging.',
+        features: [
+            'Perfect for traditional pooja and living rooms.',
+            'Rich brass finish adds warmth to any space.',
+            'Sturdy base and polished detailing.'
+        ]
+    },
+    {
+        name: 'Elegant brass wall hanging',
+        img: './images/3 (2).webp',
+        desc: 'Elegant brass wall hanging',
+        rating: '⭐⭐⭐⭐⭐ (4.8)',
+        price: '₹1800',
+        oldPrice: '₹2100',
+        sku: 'BWH-003',
+        material: 'Brass alloy',
+        dimensions: '28 x 18 x 3 cm',
+        weight: '900 g',
+        availability: 'In Stock',
+        shipping: 'Ships within 2 business days.',
+        features: [
+            'Beautiful wall hanging with intricate brass detailing.',
+            'Easy to hang and perfect for foyer or living room.',
+            'Designed for elegant décor displays.'
+        ]
+    },
+    {
+        name: 'Luxury brass candle stand',
+        img: './images/4.webp',
+        desc: 'Luxury brass candle stand',
+        rating: '⭐⭐⭐⭐☆ (4.4)',
+        price: '₹1300',
+        oldPrice: '₹1600',
+        sku: 'BCS-004',
+        material: 'Brass with lacquer coating',
+        dimensions: '14 x 14 x 25 cm',
+        weight: '750 g',
+        availability: 'In Stock',
+        shipping: 'Premium packaging included.',
+        features: [
+            'Elegant candle stand for home décor and festivals.',
+            'Stable base with polished finish.',
+            'Perfect for gifting and altars.'
+        ]
+    },
+    {
+        name: 'Brass elephant showpiece',
+        img: './images/5 (1).webp',
+        desc: 'Brass elephant showpiece',
+        rating: '⭐⭐⭐⭐⭐ (5.0)',
+        price: '₹2500',
+        oldPrice: '₹3000',
+        sku: 'BES-005',
+        material: 'Brass with antique polish',
+        dimensions: '20 x 10 x 18 cm',
+        weight: '1.3 kg',
+        availability: 'In Stock',
+        shipping: 'Trackable delivery included.',
+        features: [
+            'Stylish elephant showpiece with detailed carving.',
+            'Great for mantelpieces and shelves.',
+            'Premium weight and finish.'
+        ]
+    },
+    {
+        name: 'Vintage brass hanging bells',
+        img: './images/6 (1).webp',
+        desc: 'Vintage brass hanging bells',
+        rating: '⭐⭐⭐⭐☆ (4.7)',
+        price: '₹1700',
+        oldPrice: '₹2000',
+        sku: 'VBH-006',
+        material: 'Brass alloy',
+        dimensions: '15 x 15 x 20 cm',
+        weight: '1.0 kg',
+        availability: 'In Stock',
+        shipping: 'Free returns within 7 days.',
+        features: [
+            'Elegant hanging bells with classic brass charm.',
+            'Perfect for doorways or altars.',
+            'Rich sound and decorative detail.'
+        ]
+    },
+    {
+        name: 'Decorative brass urli bowl',
+        img: './images/7 (1).webp',
+        desc: 'Decorative brass urli bowl',
+        rating: '⭐⭐⭐⭐⭐ (4.9)',
+        price: '₹1900',
+        oldPrice: '₹2200',
+        sku: 'BUR-007',
+        material: 'Brass with glossy finish',
+        dimensions: '22 x 22 x 8 cm',
+        weight: '1.4 kg',
+        availability: 'In Stock',
+        shipping: 'Ships in protective packaging.',
+        features: [
+            'Beautiful urli bowl for floral displays.',
+            'Hand-polished brass surface.',
+            'Perfect for weddings and festive décor.'
+        ]
+    },
+    {
+        name: 'Brass peacock home decor',
+        img: './images/8 (1).webp',
+        desc: 'Brass peacock home decor',
+        rating: '⭐⭐⭐⭐☆ (4.6)',
+        price: '₹2100',
+        oldPrice: '₹2500',
+        sku: 'BPD-008',
+        material: 'Brass alloy',
+        dimensions: '24 x 16 x 10 cm',
+        weight: '1.5 kg',
+        availability: 'In Stock',
+        shipping: 'Premium courier delivery included.',
+        features: [
+            'Peacock-shaped decor piece with elegant finish.',
+            'Great for living room and entryway display.',
+            'Designed to last and impress.'
+        ]
+    }
+];
+
+document.addEventListener('DOMContentLoaded', function(){
+    const productBoxes = document.querySelectorAll('.product-box');
+
+    document.querySelectorAll('.product-icons .wishlist-icon').forEach(function(el){
+        el.addEventListener('click', function(ev){
+            ev.stopPropagation();
+            this.classList.toggle('active');
+            const icon = this.querySelector('i');
+            if(icon){
+                if(this.classList.contains('active')){
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                } else {
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                }
+            }
+        });
+    });
+
+    productBoxes.forEach(function(pb, idx){
+        const product = productsData[idx] || {};
+        const img = pb.querySelector('img');
+        const searchIcon = pb.querySelector('.search-product-icon');
+
+        if(img){
+            img.alt = product.name || img.alt || 'Decor Product';
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', function(){
+                openProductDetailByIndex(idx);
+            });
+        }
+
+        if(searchIcon){
+            searchIcon.addEventListener('click', function(ev){
+                ev.stopPropagation();
+                openProductDetailByIndex(idx);
+            });
+        }
+
+        const name = product.name || (pb.dataset && pb.dataset.name) || (pb.querySelector('.product-desc') ? pb.querySelector('.product-desc').innerText : 'Product ' + (idx + 1));
+        const imageUrl = product.img || (pb.dataset && pb.dataset.image) || (img ? img.src : '');
+        window._products.push({name: name, img: imageUrl, idx: idx});
+    });
+});
+
+function openProductDetail(product, index){
+    const params = new URLSearchParams({
+        index: index,
+        name: product.name,
+        img: product.img,
+        desc: product.desc,
+        rating: product.rating,
+        price: product.price,
+        oldPrice: product.oldPrice,
+        sku: product.sku || '',
+        material: product.material || '',
+        dimensions: product.dimensions || '',
+        weight: product.weight || '',
+        availability: product.availability || '',
+        shipping: product.shipping || '',
+        features: (product.features || []).join('|')
+    }).toString();
+    window.location.href = 'product-detail.html?' + params;
+}
+
+function openProductDetailByIndex(index){
+    const product = productsData[index];
+    if(product){
+        openProductDetail(product, index);
+    }
+}
+
+function searchProducts(){
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    const resultsEl = document.getElementById('searchResults');
+    resultsEl.innerHTML = '';
+    if(!q){ resultsEl.style.display = 'none'; return; }
+    const matches = window._products.filter(p => p.name.toLowerCase().includes(q));
+    if(matches.length === 0){ resultsEl.style.display = 'none'; return; }
+    matches.forEach(function(p){
+        const div = document.createElement('div');
+        div.className = 'search-item';
+        div.setAttribute('data-idx', p.idx);
+        div.innerHTML = `<img src="${p.img}" alt=""><p>${p.name}</p>`;
+        div.addEventListener('click', function(){
+            openProductDetailByIndex(p.idx);
+        });
+        resultsEl.appendChild(div);
+    });
+    resultsEl.style.display = 'block';
+}
+</script>
+
+</body>
+</html>
